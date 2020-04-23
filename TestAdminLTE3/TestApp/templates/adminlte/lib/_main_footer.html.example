@@ -1,0 +1,4 @@
+{% extends 'adminlte/lib/_main_footer.html' %}
+
+<!-- Set version to be shown in lower right -->
+{% block version %}1.0{% endblock %}

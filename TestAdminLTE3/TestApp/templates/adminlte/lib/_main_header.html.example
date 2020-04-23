@@ -1,0 +1,9 @@
+{% extends 'adminlte/lib/_main_header.html' %}
+
+<!-- Remove center search box at top -->
+{% block nav_bar_center %}
+{% endblock %}
+
+<!-- Remove right side of top menubar -->
+{% block nav_custom_menu %}
+{% endblock %}
