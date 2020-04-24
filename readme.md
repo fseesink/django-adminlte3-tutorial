@@ -212,4 +212,4 @@ Note the [documentation for django-adminlte2](https://django-adminlte2.readthedo
 ____
 ## Where To Go From Here
 
-AdminLTE offers a _lot_ more features than this, as can be seen in on their site and in ther live preview.  But I'll leave you with one last tidbit.  Regarding the possible icons you can make use of, note above the class attributes `fa fa-home` and `fa fa-cog`.  To help you find the right icon to use and style, use this [search page on Font Awesome](https://fontawesome.com/icons?d=gallery).
+AdminLTE offers a _lot_ more features than this, as can be seen on their site and in ther live preview.  But I'll leave you with one last tidbit.  Regarding the possible icons you can make use of, note above the class attributes `fa fa-home` and `fa fa-cog`.  To help you find the right icon to use and style, use this [search page on Font Awesome](https://fontawesome.com/icons?d=gallery).
