@@ -27,6 +27,7 @@ virtualenv . # create venv environ, which adds a ./bin, ./include, and ./lib dir
 source bin/activate
 pip list
 # pip install -r requirements.txt
+# which just does the following:
 pip install django
 pip install django-adminlte3
 ```
