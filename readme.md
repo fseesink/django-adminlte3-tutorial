@@ -80,18 +80,18 @@ INSTALLED_APPS = [
 ```
 From above in settings.py, Django will search in the order of the installed apps for a matching template.  This is why the order matters.  If you use customized AdminLTE template files in your app but it is located BELOW the `adminlte` app, your customized templates will never be reached.
 
-9. Reload the admin page.  You should now see how AdminLTE affects the admin login page.
+9. Reload the admin page.  You should now see how AdminLTE affects the admin login page.  Login again and make note of how things look now. Pretty sweet!
 
-If you've done the steps above, you have the pieces in place.  Time to actually make use of this.
+If you've done the steps above, you have the pieces in place, and from the admin page you already have a taste for what AdminLTE can do.  Time to actually make use of this.
 
 ____
 ## Creating Your First Page
 
 10. Now, if you want to simply get a taste for what this module can do for you, create a template page `index.html` in
 
-`Django-AdminLTE3/TestAdminLTE3/TestAdminLTE3/TestApp/Templates/TestApp/`
+`Django-AdminLTE3/TestAdminLTE3/TestApp/Templates/TestApp/`
 
-which contains the following:
+(creating any subdirectories needed) which contains the following:
 
 ```html
 {% extends 'adminlte/base.html' %}
@@ -141,11 +141,10 @@ from . import views
 app_name = 'TestApp'
 urlpatterns = [
     path('', views.IndexView.as_view(), name='index'),
-...
 ]
 ```
 
-Since there's just one view, `index.html`, we specify the URL pattern `''` so it's the home/index page.
+Since there's just one view, `index.html`, we specify the URL pattern `''` so it's the home/index page for the TestApp.
 
 13. Modify the main Django project file `Django-AdminLTE3/TestAdminLTE3/TestAdminLTE3/urls.py` to stitch the TestApp URL patterns into the overall Django project URL patterns:
 
@@ -159,7 +158,7 @@ urlpatterns = [
 ]
 ```
 
-Here, since the only app is TestApp, and we want it to load on the main page, we specify `''` as the URL pattern.  This means visiting the main page (e.g., http://127.0.0.1:8000) maps to this URL pattern, which flows through to the TestApp `urls.py` file, which in turn maps this to the IndexView, which then loads the TestApp `index.html` template file.
+Here, since the only app is TestApp, and we want it to load on the main page of the project, we specify `''` as the URL pattern.  This means visiting the main page (e.g., http://127.0.0.1:8000) maps to this URL pattern, which flows through to the TestApp `urls.py` file, which in turn maps to the IndexView, which then loads the TestApp `index.html` template file.
 
 14.  Load the main page again (what typically is http://127.0.0.1:8000).  Voila!
 15. Customize AdminLTE templates as needed.
@@ -167,7 +166,7 @@ Here, since the only app is TestApp, and we want it to load on the main page, we
 
 Ok ok, kidding.  So let's take this slow.
 
-Now that default page is nice to look at, as it contains various elements.  But none of them actually work.  So let's continue for just a little.
+Now, that default page is nice to look at.  It contains various elements, from a header, footer, and side navigation bar, to a logo and a user panel, etc.  But none of them actually work.  So let's continue for just a little.
 
 ____
 ## Short Aside:  How Does This Work?
