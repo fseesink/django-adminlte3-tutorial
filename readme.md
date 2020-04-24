@@ -45,14 +45,23 @@ django-admin startapp TestApp
 python3 manage.py migrate
 ```
 
-4. Run server to verify things are working
+4. Create superuser account (so you can access Django admin pages):
+```
+python3 manage.py createsuperuser
+```
+
+Fill in username and password as needed.  Email optional.
+
+5. Run server to verify things are working
 ```
 python3 manage.py runserver
 ```
 
-5.  Load the default page (what typically is http://127.0.0.1:8000) to verify things are working.  Then load the admin page (what typically is http://127.0.0.1:8000/admin) to see what the default looks like before adding AdminLTE to the mix.
+6.  Load the default page (what typically is http://127.0.0.1:8000) to verify things are working.
 
-6. Modify `Django-AdminLTE3/TestAdminLTE3/TestAdminLTE3/settings.py`
+7.  Load the admin page (what typically is http://127.0.0.1:8000/admin) to see what the default looks like before adding AdminLTE to the mix.  Login and make note of how things look. Then logout (link in upper right) and click the upper left to reload the Admin page itself.
+
+8. Modify `Django-AdminLTE3/TestAdminLTE3/TestAdminLTE3/settings.py`
 
 ```python
 ...
@@ -71,14 +80,14 @@ INSTALLED_APPS = [
 ```
 From above in settings.py, Django will search in the order of the installed apps for a matching template.  This is why the order matters.  If you use customized AdminLTE template files in your app but it is located BELOW the `adminlte` app, your customized templates will never be reached.
 
-7. Reload the admin page.  You should now see how AdminLTE affects the admin login page.
+9. Reload the admin page.  You should now see how AdminLTE affects the admin login page.
 
 If you've done the steps above, you have the pieces in place.  Time to actually make use of this.
 
 ____
 ## Creating Your First Page
 
-8. Now, if you want to simply get a taste for what this module can do for you, create a template page `index.html` in
+10. Now, if you want to simply get a taste for what this module can do for you, create a template page `index.html` in
 
 `Django-AdminLTE3/TestAdminLTE3/TestAdminLTE3/TestApp/Templates/TestApp/`
 
@@ -107,7 +116,7 @@ So what's going on here?
 
 Of course, a template only works if there's a Django view accessing it.  So now create your first view.
 
-9. Modify `Django-AdminLTE3/TestAdminLTE3/TestApp/views.py` as follows:
+11. Modify `Django-AdminLTE3/TestAdminLTE3/TestApp/views.py` as follows:
 
 ```python
 from django.shortcuts import render
@@ -123,7 +132,7 @@ Here the Django generic TemplateView class was viewed to keep it simple.  This v
 
 Next, we need to make sure Django has a URL pattern configured to reach this app's view.  Here we use the best practice of defining URL patterns within an app, which provides portability should we want to deploy this app in another Django project.
 
-10. Create file `Django-AdminLTE3/TestAdminLTE3/TestApp/urls.py` to define URL patterns to use in the TestApp app:
+12. Create file `Django-AdminLTE3/TestAdminLTE3/TestApp/urls.py` to define URL patterns to use in the TestApp app:
 
 ```python
 from django.urls import path
@@ -138,7 +147,7 @@ urlpatterns = [
 
 Since there's just one view, `index.html`, we specify the URL pattern `''` so it's the home/index page.
 
-11. Modify the main Django project file `Django-AdminLTE3/TestAdminLTE3/TestAdminLTE3/urls.py` to stitch the TestApp URL patterns into the overall Django project URL patterns:
+13. Modify the main Django project file `Django-AdminLTE3/TestAdminLTE3/TestAdminLTE3/urls.py` to stitch the TestApp URL patterns into the overall Django project URL patterns:
 
 ```python
 from django.contrib import admin
@@ -152,9 +161,9 @@ urlpatterns = [
 
 Here, since the only app is TestApp, and we want it to load on the main page, we specify `''` as the URL pattern.  This means visiting the main page (e.g., http://127.0.0.1:8000) maps to this URL pattern, which flows through to the TestApp `urls.py` file, which in turn maps this to the IndexView, which then loads the TestApp `index.html` template file.
 
-12.  Load the main page again (what typically is http://127.0.0.1:8000).  Voila!
-13. Customize AdminLTE templates as needed.
-14. Profit!
+14.  Load the main page again (what typically is http://127.0.0.1:8000).  Voila!
+15. Customize AdminLTE templates as needed.
+16. Profit!
 
 Ok ok, kidding.  So let's take this slow.
 
