@@ -12,7 +12,7 @@ Lets get to it.
 ____
 NOTES:
 * This falls under the "if you break it, you get to keep both pieces" type licensing. ;-)
-* I mostly wrote this for my future self, as otherwise inevitably I'll forget how to use this.  So any/all goofs/etc. are my own.
+* I mostly wrote this for my future self, as otherwise inevitably I'll forget how to use this.  So any/all goofs/etc. are my own.  It may also change over time.  Fair warning.
 * Of course, if it benefits you in any way, fantastic.  If this saves anyone even a minute of time, I take it as a win.  To me time is one of the greatest gifts we can offer another person.
 * Feel free to provide feedback/corrections, though bear with me if I'm slow in responding.
 * This is by no means a Django tutorial.  For that I suggest starting with the [official Django documentation](https://docs.djangoproject.com) which includes a nice [walkthrough and tutorial](https://docs.djangoproject.com/en/3.0/intro/overview/).  There are also a ton of useful books, online course, YouTube videos, etc., which can cover the basics far better than I can.  I may post what's worked for me at some point but no promises.  The assumption here is that you have some familiarity with Django.
@@ -268,6 +268,8 @@ The file above
 * Removes the default user_panel shown (by declaring the block but otherwise having it empty)
 * Sets the heading of the side navbar
 * Defines links for `Home` and `Admin`, setting the icons next to them to a home and cog, respectively
+
+Save that file.  Reload the main page again, and you should see the sidebar navigation has changed.
 
 ____
 ## Next Steps
