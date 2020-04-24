@@ -80,9 +80,10 @@ Fill in username and password as needed.  Email optional.
 python3 manage.py runserver
 ```
 
-\[If you cloned the repo, at this point you'll already have a setup which shows the impact AdminLTE3 can have on your site.  Basically you're where you'd be if you finished the numbered steps below.  From there you can simply rename the other template files that end in `.example` to see how things are impacted by creating such templates.  But it may not have quite the impact as seeing the changes as you go.]
-
 8.  Load the default page (what typically is http://127.0.0.1:8000) to verify things are working.
+
+\[NOTE:  If you cloned the repo, at this point you'll already have a setup which shows the impact AdminLTE3 can have on your site.  Basically you're where you'd be if you finished the numbered steps below.  From there you can simply rename the other template files that end in `.example` to see how things are impacted by creating such templates.  But it may not have quite the impact as seeing the changes as you go.]
+
 
 9.  Load the admin page (what typically is http://127.0.0.1:8000/admin) to see what the default looks like before adding AdminLTE to the mix.  Login and make note of how things look. Then logout (link in upper right) and click the upper left to reload the Admin page itself.
 
