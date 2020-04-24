@@ -16,14 +16,14 @@ NOTES:
 * Of course, if it benefits you in any way, fantastic.  If this saves anyone even a minute of time, I take it as a win.  To me time is one of the greatest gifts we can offer another person.
 * Feel free to provide feedback/corrections, though bear with me if I'm slow in responding.
 * This is by no means a Django tutorial.  For that I suggest starting with the [official Django documentation](https://docs.djangoproject.com) which includes a nice [walkthrough and tutorial](https://docs.djangoproject.com/en/3.0/intro/overview/).  There are also a ton of useful books, online course, YouTube videos, etc., which can cover the basics far better than I can.  I may post what's worked for me at some point but no promises.  The assumption here is that you have some familiarity with Django.
-* This repo contains all the content explained below, minus the files/folders created by the `virtualenv` command.  So you could clone this repo, then follow starting at step #2.  But I explain the steps to build a Django project that uses this module from the ground up so you can do this yourself.  Note template files ending in `.example` are basically there so that, if you want to try them out, you simply rename the file by removing that extension, then reloading your browser to see how having that customized template affects things.
+* This repo contains all the content explained below, minus the files/folders created by the `virtualenv` command.  So you could simply clone this repo and follow starting at step #2, noting that for pathnames to be consistent, you'd want to rename the clone folder `django-adminlte3-tutorial` to `Django-AdminLTE3` and then `cd` into that.  But I explain the steps to build a Django project that uses this pip module from the ground up so you can do this yourself.  Note template files ending in `.example` are basically there so that, if you want to try them out, you simply rename the file by removing that extension, then reloading your browser to see how having that customized template affects things.
 
 ____
 ## Setup Project Environment
 
 To build a Django application which utilizes the `django-adminlte3` pip module, here are the general steps:
 
-1. Create a folder to hold your Django project (e.g., **Django-AdminLTE3**) and navigate into it
+1. Create a folder to hold your Django project (e.g., **Django-AdminLTE3**) and navigate into it.  This is done so we can contain the development environment within a Python virtual environment.
 
 ```bash
 mkdir Django-AdminLTE3
@@ -46,6 +46,7 @@ pip list
 # Or just do the following:
 pip install django
 pip install django-adminlte3
+# Verify the modules are there
 pip list
 ```
 
