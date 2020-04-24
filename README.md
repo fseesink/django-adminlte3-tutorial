@@ -16,7 +16,7 @@ NOTES:
 * Of course, if it benefits you in any way, fantastic.  If this saves anyone even a minute of time, I take it as a win.  To me time is one of the greatest gifts we can offer another person.
 * Feel free to provide feedback/corrections, though bear with me if I'm slow in responding.
 * This is by no means a Django tutorial.  For that I suggest starting with the [official Django documentation](https://docs.djangoproject.com) which includes a nice [walkthrough and tutorial](https://docs.djangoproject.com/en/3.0/intro/overview/).  There are also a ton of useful books, online course, YouTube videos, etc., which can cover the basics far better than I can.  I may post what's worked for me at some point but no promises.  The assumption here is that you have some familiarity with Django.
-* This repo contains all the content explained below, minus the files/folders created by the `virtualenv` command.  So you _could_ clone this repo and follow along by looking at those files, skipping steps as needed (since I already created the Django project and app, template files, etc.).  However, I explain the steps to build a Django project that uses the `django-adminlte3` pip module from the ground up so that you can do this yourself and learn the process.  Note template files ending in `.example` in the repo are basically there so that, if you want to try them out, you simply rename the file by removing that extension, then reload your browser to see how having that customized template affects things.
+* This repo contains all the content explained below, minus the files/folders created by the `virtualenv` command.  So you _could_ clone this repo and follow along by looking at those files, skipping steps as needed (since I already created the Django project and app, template files, etc.).  I've tried to make notes where appropriate.  However, I explain the steps to build a Django project that uses the `django-adminlte3` pip module from the ground up so that you can do this yourself and learn the process.  Note template files ending in `.example` in the repo are basically there so that, if you want to try them out, you simply rename the file by removing that extension, then reload your browser to see how having that customized template affects things.
 
 ____
 ## Setup Project Environment
@@ -51,6 +51,8 @@ pip list
 ```
 
 4. Create Django project (e.g., **TestAdminLTE3**) and your app (e.g., **TestApp**)
+
+\[Skip if you cloned the repo]
 ```bash
 django-admin startproject TestAdminLTE3
 cd TestAdminLTE3
@@ -58,11 +60,15 @@ django-admin startapp TestApp
 ```
 
 5. Run migrations
+
+\[Skip if you cloned the repo]
 ```
 python3 manage.py migrate
 ```
 
 6. Create superuser account (so you can access Django admin pages):
+
+\[If you cloned the repo, you can either run this to create your own username, or skip and use Username/password:  frank/frank]
 ```
 python3 manage.py createsuperuser
 ```
@@ -73,6 +79,8 @@ Fill in username and password as needed.  Email optional.
 ```
 python3 manage.py runserver
 ```
+
+\[If you cloned the repo, at this point you'll already have a setup which shows the impact AdminLTE3 can have on your site.  Basically you're where you'd be if you finished the numbered steps below.  From there you can simply rename the other template files that end in `.example` to see how things are impacted by creating such templates.  But it may not have quite the impact as seeing the changes as you go.]
 
 8.  Load the default page (what typically is http://127.0.0.1:8000) to verify things are working.
 
@@ -263,7 +271,7 @@ The file above
 ____
 ## Next Steps
 
-Similar to the file `_main_sidebar.html`, there's also `_main_header.html` and `_main_footer.html`.  If you wish to modify those elements, simply create these files in the same directory as `_main_sidebar.html`, then edit them accordingly.
+Similar to the file `_main_sidebar.html`, there's also `_main_header.html` and `_main_footer.html`.  If you wish to modify those elements, simply create these files in the same directory as `_main_sidebar.html`, then edit them accordingly.  I have provided examples in the repo you can use just to get an idea.
 
 Note the [documentation for django-adminlte2](https://django-adminlte2.readthedocs.io) is a very good resource.  (Though the django-adminlte3 site claims to have documentation at a nearly identical site, just for version 3, that site doesn't exist.  But to date haven't had issues using the v2 docs to sort through things.)
 
