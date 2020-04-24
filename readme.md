@@ -72,7 +72,6 @@ From above in settings.py, Django will search in the order of the installed apps
 
 ```python
 from django.urls import path
-
 from . import views
 
 app_name = 'TestApp'
@@ -110,7 +109,7 @@ Now, if you want to simply get a taste for what this module can do for you, simp
 
 which contains the following:
 
-```python
+```html
 {% extends 'adminlte/base.html' %}
 
 <!-- Set title of app -->
@@ -140,7 +139,7 @@ ____
 
 I like to understand how things work if I'm going to use them.  So in that spirit, for those similarly inclined, note that when you install the `django-adminlte3` Python module using pip, it gets installed like any other Python module into the `site-packages` directory.  For example, if you followed the steps above, take a look in
 
-`Django-AdminLTE3/lib/python3.8/site-packages`
+`Django-AdminLTE3/lib/python<version>/site-packages`
 
 There you will find directories `adminlte3`, `adminlte3_theme`, `django`, and `django_adminlte3`, among others.  `adminlte3` contains the actual AdminLTE template files.  Note you don't use or modify these.  If you wish to customize things, you create your own versions in which you place an `{% extend <file> %}` line at the top to pull that file in and then modify it as needed.  But it's worth knowing where the default ones live in case you want to look at them.  Either that or download the official AdminLTE files and look through those for examples to work with.  To see examples of what the template offers, check out their [live preview page](https://adminlte.io/preview).
 
@@ -158,7 +157,7 @@ To do so, recreate that path in your app, e.g.,
 `Django-AdminLTE3/TestAdminLTE3/TestApp/templates/adminlte/lib/_main_sidebar.html`
 
 and adjust this file as needed, such as
-```python
+```html
 {% extends 'adminlte/lib/_main_sidebar.html' %}
 {% load static %}
 
