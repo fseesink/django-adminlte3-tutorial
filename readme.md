@@ -10,58 +10,74 @@ For documentation of the module, see https://django-adminlte2.readthedocs.io
 
 Lets get to it.
 ____
-NOTE 1:  This is by no means a Django tutorial.  For that I suggest starting with the [official Django documentation](https://docs.djangoproject.com) which includes a nice tutorial.  There are also a ton of useful books, online course, YouTube videos, etc., which can cover the basics far better than I can.  The assumption here is that you have some familiarity with Django.
-
-NOTE 2: This repo contains all the content explained below, minus the files/folders created by the `virtualenv` command.  So you could clone this repo, then follow step #1 starting with the `virtualenv .` line to get all the files needed to tinker.  But I explain the steps to build a Django project that uses this module from the ground up so you can do this yourself.  Note template files ending in `.example` are basically there so that, if you want to try them out, you simply rename the file by removing that extension, then reloading your browser to see how having that customized template affects things.
+NOTES:
+* This falls under the "if you break it, you get to keep both pieces" type licensing. ;-)
+* I mostly wrote this for my future self, as otherwise inevitably I'll forget how to use this.  So any/all goofs/etc. are my own.
+* Of course, if it benefits you in any way, fantastic.  If this saves anyone even a minute of time, I take it as a win.  To me time is one of the greatest gifts we can offer another person.
+* Feel free to provide feedback/corrections, though bear with me if I'm slow in responding.
+* This is by no means a Django tutorial.  For that I suggest starting with the [official Django documentation](https://docs.djangoproject.com) which includes a nice [walkthrough and tutorial](https://docs.djangoproject.com/en/3.0/intro/overview/).  There are also a ton of useful books, online course, YouTube videos, etc., which can cover the basics far better than I can.  I may post what's worked for me at some point but no promises.  The assumption here is that you have some familiarity with Django.
+* This repo contains all the content explained below, minus the files/folders created by the `virtualenv` command.  So you could clone this repo, then follow starting at step #2.  But I explain the steps to build a Django project that uses this module from the ground up so you can do this yourself.  Note template files ending in `.example` are basically there so that, if you want to try them out, you simply rename the file by removing that extension, then reloading your browser to see how having that customized template affects things.
 
 ____
 ## Setup Project Environment
 
 To build a Django application which utilizes the `django-adminlte3` pip module, here are the general steps:
 
-1. Create a folder for your Django project (e.g., **Django-AdminLTE3**) and build virtual environment with pip modules:
+1. Create a folder to hold your Django project (e.g., **Django-AdminLTE3**) and navigate into it
+
 ```bash
 mkdir Django-AdminLTE3
 cd Django-AdminLTE3
+```
+
+2. Build a virtual environment and activate it:
+
+```bash
 # create venv environ, which adds a ./bin, ./include, and ./lib directories
 virtualenv .
 source bin/activate
+```
+
+3. Verify you're in the virtual environment by showing the installed `pip` modules, then install the necessary `pip` modules for doing Django/AdminLTE development, and finally verify they were installed:
+
+```bash
 pip list
 # pip install -r requirements.txt
 # Or just do the following:
 pip install django
 pip install django-adminlte3
+pip list
 ```
 
-2. Create Django project (e.g., **TestAdminLTE3**) and your app (e.g., **TestApp**)
+4. Create Django project (e.g., **TestAdminLTE3**) and your app (e.g., **TestApp**)
 ```bash
 django-admin startproject TestAdminLTE3
 cd TestAdminLTE3
 django-admin startapp TestApp
 ```
 
-3. Run migrations
+5. Run migrations
 ```
 python3 manage.py migrate
 ```
 
-4. Create superuser account (so you can access Django admin pages):
+6. Create superuser account (so you can access Django admin pages):
 ```
 python3 manage.py createsuperuser
 ```
 
 Fill in username and password as needed.  Email optional.
 
-5. Run server to verify things are working
+7. Run server to verify things are working
 ```
 python3 manage.py runserver
 ```
 
-6.  Load the default page (what typically is http://127.0.0.1:8000) to verify things are working.
+8.  Load the default page (what typically is http://127.0.0.1:8000) to verify things are working.
 
-7.  Load the admin page (what typically is http://127.0.0.1:8000/admin) to see what the default looks like before adding AdminLTE to the mix.  Login and make note of how things look. Then logout (link in upper right) and click the upper left to reload the Admin page itself.
+9.  Load the admin page (what typically is http://127.0.0.1:8000/admin) to see what the default looks like before adding AdminLTE to the mix.  Login and make note of how things look. Then logout (link in upper right) and click the upper left to reload the Admin page itself.
 
-8. Modify `Django-AdminLTE3/TestAdminLTE3/TestAdminLTE3/settings.py`
+10. Modify `Django-AdminLTE3/TestAdminLTE3/TestAdminLTE3/settings.py`
 
 ```python
 ...
@@ -80,14 +96,14 @@ INSTALLED_APPS = [
 ```
 From above in settings.py, Django will search in the order of the installed apps for a matching template.  This is why the order matters.  If you use customized AdminLTE template files in your app but it is located BELOW the `adminlte` app, your customized templates will never be reached.
 
-9. Reload the admin page.  You should now see how AdminLTE affects the admin login page.  Login again and make note of how things look now. Pretty sweet!
+11. Reload the admin page.  You should now see how AdminLTE affects the admin login page.  Login again and make note of how things look now. Pretty sweet!
 
 If you've done the steps above, you have the pieces in place, and from the admin page you already have a taste for what AdminLTE can do.  Time to actually make use of this.
 
 ____
 ## Creating Your First Page
 
-10. Now, if you want to simply get a taste for what this module can do for you, create a template page `index.html` in
+12. Now, if you want to simply get a taste for what this module can do for you, create a template page `index.html` in
 
 `Django-AdminLTE3/TestAdminLTE3/TestApp/templates/TestApp/`
 
@@ -116,7 +132,7 @@ So what's going on here?
 
 Of course, a template only works if there's a Django view accessing it.  So now create your first view.
 
-11. Modify `Django-AdminLTE3/TestAdminLTE3/TestApp/views.py` as follows:
+13. Modify `Django-AdminLTE3/TestAdminLTE3/TestApp/views.py` as follows:
 
 ```python
 from django.shortcuts import render
@@ -132,7 +148,7 @@ Here the Django generic TemplateView class was viewed to keep it simple.  This v
 
 Next, we need to make sure Django has a URL pattern configured to reach this app's view.  Here we use the best practice of defining URL patterns within an app, which provides portability should we want to deploy this app in another Django project.
 
-12. Create file `Django-AdminLTE3/TestAdminLTE3/TestApp/urls.py` to define URL patterns to use in the TestApp app:
+14. Create file `Django-AdminLTE3/TestAdminLTE3/TestApp/urls.py` to define URL patterns to use in the TestApp app:
 
 ```python
 from django.urls import path
@@ -146,7 +162,7 @@ urlpatterns = [
 
 Since there's just one view, `index.html`, we specify the URL pattern `''` so it's the home/index page for the TestApp.
 
-13. Modify the main Django project file `Django-AdminLTE3/TestAdminLTE3/TestAdminLTE3/urls.py` to stitch the TestApp URL patterns into the overall Django project URL patterns:
+15. Modify the main Django project file `Django-AdminLTE3/TestAdminLTE3/TestAdminLTE3/urls.py` to stitch the TestApp URL patterns into the overall Django project URL patterns:
 
 ```python
 from django.contrib import admin
@@ -160,9 +176,9 @@ urlpatterns = [
 
 Here, since the only app is TestApp, and we want it to load on the main page of the project, we specify `''` as the URL pattern.  This means visiting the main page (e.g., http://127.0.0.1:8000) maps to this URL pattern, which flows through to the TestApp `urls.py` file, which in turn maps to the IndexView, which then loads the TestApp `index.html` template file.
 
-14.  Load the main page again (what typically is http://127.0.0.1:8000).  Voila!
-15. Customize AdminLTE templates as needed.
-16. Profit!
+16.  Load the main page again (what typically is http://127.0.0.1:8000).  Voila!
+17. Customize AdminLTE templates as needed.
+18. Profit!
 
 Ok ok, kidding.  So let's take this slow.
 
