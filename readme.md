@@ -23,7 +23,8 @@ To build a Django application which utilizes the `django-adminlte3` pip module, 
 ```bash
 mkdir Django-AdminLTE3
 cd Django-AdminLTE3
-virtualenv . # create venv environ, which adds a ./bin, ./include, and ./lib directories
+# create venv environ, which adds a ./bin, ./include, and ./lib directories
+virtualenv .
 source bin/activate
 pip list
 # pip install -r requirements.txt
@@ -49,7 +50,9 @@ python3 manage.py migrate
 python3 manage.py runserver
 ```
 
-5. Modify `Django-AdminLTE3/TestAdminLTE3/TestAdminLTE3/settings.py`
+5.  Load the default page (what typically is http://127.0.0.1:8000) to verify things are working.  Then load the admin page (what typically is http://127.0.0.1:8000/admin) to see what the default looks like before adding AdminLTE to the mix.
+
+6. Modify `Django-AdminLTE3/TestAdminLTE3/TestAdminLTE3/settings.py`
 
 ```python
 ...
@@ -68,42 +71,14 @@ INSTALLED_APPS = [
 ```
 From above in settings.py, Django will search in the order of the installed apps for a matching template.  This is why the order matters.  If you use customized AdminLTE template files in your app but it is located BELOW the `adminlte` app, your customized templates will never be reached.
 
-6. Create file `Django-AdminLTE3/TestAdminLTE3/TestAdminLTE3/TestApp/urls.py` to define URL patterns to use in the TestApp app:
-
-```python
-from django.urls import path
-from . import views
-
-app_name = 'TestApp'
-urlpatterns = [
-    path('', views.IndexView.as_view(), name='index'),
-...
-]
-```
-
-7. Modify file `Django-AdminLTE3/TestAdminLTE3/TestAdminLTE3/urls.py` to stitch the TestApp URL patterns into the overall project URL patterns:
-
-```python
-from django.contrib import admin
-from django.urls import include,path
-
-urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('TestApp.urls')),
-]
-```
-
-8. Customize AdminLTE templates as needed.
-9. Profit!
-
-Ok ok, kidding.  I kind of glossed over step #7.  So let's take this slow.
+7. Reload the admin page.  You should now see how AdminLTE affects the admin login page.
 
 If you've done the steps above, you have the pieces in place.  Time to actually make use of this.
 
 ____
 ## Creating Your First Page
 
-Now, if you want to simply get a taste for what this module can do for you, simply create a template page `index.html` in
+8. Now, if you want to simply get a taste for what this module can do for you, create a template page `index.html` in
 
 `Django-AdminLTE3/TestAdminLTE3/TestAdminLTE3/TestApp/Templates/TestApp/`
 
@@ -125,14 +100,65 @@ which contains the following:
 {% endblock %}
 ```
 
-Then load the site in your browser (what typically is http://127.0.0.1:8000)
-
 So what's going on here?
 * Just as with any Django templates, you're using Jinja2 formatting with the usual {% %} tags in your template file
-* Line 1 extends the default AdminLTE `base.html` file included by the module, allowing you to override different blocks defined in that template.  (This is typically the minimum you'll want to do.)
-* The two blocks, `title` and `content`, which are defined in base.html, are overridden, resulting in their contents appearing on the page
+* Line 1 extends the default AdminLTE `base.html` file included by the pip module, allowing you to override different blocks defined in that template.  (This is typically the minimum you'll want to do.)
+* The two blocks, `title` and `content`, which are defined in base.html, are overridden, resulting in their contents appearing on the page.  These were chosen just to show how things fit together (think "hello world").  If you did not override these (i.e., if you deleted all but the first line), you'd see whatever was defined in the default AdminLTE template `base.html` file.
 
-Now that default page is nice to look at, as it contains various elements, but none of them work.  So let's continue for just a little.
+Of course, a template only works if there's a Django view accessing it.  So now create your first view.
+
+9. Modify `Django-AdminLTE3/TestAdminLTE3/TestApp/views.py` as follows:
+
+```python
+from django.shortcuts import render
+from django.views import generic
+
+# Create your views here.
+
+class IndexView(generic.TemplateView):
+    template_name = 'TestApp/index.html'
+```
+
+Here the Django generic TemplateView class was viewed to keep it simple.  This view simply loads that corresponding template file.
+
+Next, we need to make sure Django has a URL pattern configured to reach this app's view.  Here we use the best practice of defining URL patterns within an app, which provides portability should we want to deploy this app in another Django project.
+
+10. Create file `Django-AdminLTE3/TestAdminLTE3/TestApp/urls.py` to define URL patterns to use in the TestApp app:
+
+```python
+from django.urls import path
+from . import views
+
+app_name = 'TestApp'
+urlpatterns = [
+    path('', views.IndexView.as_view(), name='index'),
+...
+]
+```
+
+Since there's just one view, `index.html`, we specify the URL pattern `''` so it's the home/index page.
+
+11. Modify the main Django project file `Django-AdminLTE3/TestAdminLTE3/TestAdminLTE3/urls.py` to stitch the TestApp URL patterns into the overall Django project URL patterns:
+
+```python
+from django.contrib import admin
+from django.urls import include,path
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', include('TestApp.urls')),
+]
+```
+
+Here, since the only app is TestApp, and we want it to load on the main page, we specify `''` as the URL pattern.  This means visiting the main page (e.g., http://127.0.0.1:8000) maps to this URL pattern, which flows through to the TestApp `urls.py` file, which in turn maps this to the IndexView, which then loads the TestApp `index.html` template file.
+
+12.  Load the main page again (what typically is http://127.0.0.1:8000).  Voila!
+13. Customize AdminLTE templates as needed.
+14. Profit!
+
+Ok ok, kidding.  So let's take this slow.
+
+Now that default page is nice to look at, as it contains various elements.  But none of them actually work.  So let's continue for just a little.
 
 ____
 ## Short Aside:  How Does This Work?
@@ -141,7 +167,7 @@ I like to understand how things work if I'm going to use them.  So in that spiri
 
 `Django-AdminLTE3/lib/python<version>/site-packages`
 
-There you will find directories `adminlte3`, `adminlte3_theme`, `django`, and `django_adminlte3`, among others.  `adminlte3` contains the actual AdminLTE template files.  Note you don't use or modify these.  If you wish to customize things, you create your own versions in which you place an `{% extend <file> %}` line at the top to pull that file in and then modify it as needed.  But it's worth knowing where the default ones live in case you want to look at them.  Either that or download the official AdminLTE files and look through those for examples to work with.  To see examples of what the template offers, check out their [live preview page](https://adminlte.io/preview).
+There you will find directories `adminlte3`, `adminlte3_theme`, `django`, and `django_adminlte3`, among others.  `adminlte3` contains the actual AdminLTE template files.  Note you don't modify these.  If you wish to customize things, you create your own versions, which you store in a path that matches the default ones (more on that in a minute).  And in these you place an `{% extend <file> %}` line at the top to pull that default file in and then modify it as needed.  But it's worth knowing where the default ones live in case you want to look at them.  Either that or download the official AdminLTE files and look through those for examples to work with.  To see examples of what the template offers, check out their [live preview page](https://adminlte.io/preview).
 
 Now on with the show.
 
