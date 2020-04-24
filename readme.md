@@ -89,7 +89,7 @@ ____
 
 10. Now, if you want to simply get a taste for what this module can do for you, create a template page `index.html` in
 
-`Django-AdminLTE3/TestAdminLTE3/TestApp/Templates/TestApp/`
+`Django-AdminLTE3/TestAdminLTE3/TestApp/templates/TestApp/`
 
 (creating any subdirectories needed) which contains the following:
 
