@@ -260,10 +260,32 @@ The file above
 * Extends the default AdminLTE `_main_sidebar.html` file
 * Sets a logo that appears in the upper left corner
   * NOTES:
-    * For this to appear, you must, of course, actually have a file named `logo.png` that is stored in `Django-AdminLTE3/TestAdminLTE3/TestApp/static/TestApp/`
-    * This taps Django's use of static files.
-      * For more information on Django static files, see https://docs.djangoproject.com/en/2.2/howto/static-files/
-      * This feature is used to designate all your static content (images, media, etc.).  In production, you typically optimize your webserver(s) config to host your static content separate from your dynamic content, as the former doesn't need to be processed.  In such cases, you'd run `python3 manage.py collectstatic` any time you added/changes static files in your various apps.  This is why the repetitive directory pattern exists within each app to use `<projectname>/<APPNAME>/static/<APPNAME>/...`.  When you run the `collectstatic` command, all the files/folders in each app's `static` directories are collected together and placed under `<projectname>/static`.  By storing things this way, you know your files will be stored in `<projectname>/static/<APPNAME>/...`.  This is similar to Django's concept of "namespaces" as applied to template files (which also follow this pattern, with template files stored in `<projectname>/<APPNAME>/templates/<APPNAME>/`).
+    * For this to appear, you must have a file named `logo.png` that is stored in `Django-AdminLTE3/TestAdminLTE3/TestApp/static/TestApp/`
+    * This taps Django's use of **[static files](https://docs.djangoproject.com/en/2.2/howto/static-files/)**.
+      * This feature is used to designate all your static content (images, media, etc.).  In production, you typically optimize your webserver(s) config to host your static content *separately* from your dynamic content. The former doesn't need to be processed, so this allows for it be served from CDNs or other services optimized for static content.
+      * *While developing*, the only thing you need to keep in mind is that any static content you add will NOT be picked up until you restart your server (CTRL-C, `python3 manage.py runserver`).  So if you add the logo file, reload your webpage, and it's not appearing, keep this in mind.
+      * When it's time for production, you'd first set `STATIC_ROOT`, either as an environment variable or in the project's settings file (`Django-AdminLTE3/TestAdminLTE3/TestAdminLTE3/settings.py`).  Then you run
+        ```
+        python3 manage.py collectstatic
+        ```
+        any time you add/change static files in your various apps.
+        
+        [NOTE:  If you see this error:  `django.core.exceptions.ImproperlyConfigured: You're using the staticfiles app without having set the STATIC_ROOT setting to a filesystem path`, it's because you did not set STATIC_ROOT.]
+
+        There's another setting, `STATIC_URL`, which be default is set to `'/static/'` in your project's settings file.  This points to where all the static content will be collected together.
+        * This is why the repetitive directory pattern exists within each app:
+          ```
+          <projectname>/<APPNAME>/static/<APPNAME>/...
+          ```
+          When you run the `collectstatic` command, all the files/folders in *each* app's `static` directory is collected together and placed under
+          ```
+          <projectname>/static
+          ```
+          By storing things this way, you know your app's static files will be stored in
+            ```
+            <projectname>/static/<APPNAME>/...
+            ```
+          This is similar to Django's concept of "namespaces" as applied to template files, which also follow this pattern, with template files stored in `<projectname>/<APPNAME>/templates/<APPNAME>/`.
 
 * Removes the default user_panel shown (by declaring the block but otherwise having it empty)
 * Sets the heading of the side navbar
