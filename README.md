@@ -201,7 +201,7 @@ I like to understand how things work if I'm going to use them.  So in that spiri
 
 `Django-AdminLTE3/lib/python<version>/site-packages`
 
-There you will find directories `adminlte3`, `adminlte3_theme`, `django`, and `django_adminlte3`, among others.  `adminlte3` contains the actual AdminLTE template files.  Note you don't modify these.  If you wish to customize things, you create your own versions, which you store in a path that matches the default ones (more on that in a minute).  And in these you place an `{% extend <file> %}` line at the top to pull that default file in and then modify it as needed.  But it's worth knowing where the default ones live in case you want to look at them.  Either that or download the official AdminLTE files and look through those for examples to work with.  To see examples of what the template offers, check out their [live preview page](https://adminlte.io/preview).
+There you will find directories `adminlte3`, `adminlte3_theme`, `django`, and `django_adminlte3`, among others.  `adminlte3` contains the actual AdminLTE template files.  Note you don't modify these.  If you wish to customize things, you create your own versions, which you store in a path that matches the default ones (more on that in a minute).  And in these you place an `{% extend <file> %}` line at the top to pull that default file in and then modify it as needed.  But it's worth knowing where the default ones live in case you want to look at them.  Either that or download the official AdminLTE files and look through those for examples to work with.  To see examples of what the template offers, check out their [live preview page](https://adminlte.io/themes/v3/).
 
 Now on with the show.
 
